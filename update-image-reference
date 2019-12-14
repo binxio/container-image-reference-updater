@@ -1,0 +1,38 @@
+#!/bin/bash
+set -x
+[[ -z $1 ]] && echo "Usage; $(basename $0) docker-image-name" >&2 && exit 1
+
+WORKSPACE=/tmp/infrastructure
+FULL_NAME=$1
+NAME=$(cut -d: -f1 <<< $1)
+TAG=$(cut -d: -f2 <<< $1)
+
+function set_git_config {
+    if [[ -z $(git config --get user.email) ]]; then
+        ACCOUNT=$(gcloud auth list --filter status=ACTIVE --format 'value(account)')
+        git config --global user.email $ACCOUNT
+        git config --global user.name $ACCOUNT
+    fi
+}
+function clone_repository {
+    gcloud source repos clone ${REPOSITORY_NAME} $WORKSPACE --project ${REPOSITORY_PROJECT}
+}
+
+function update_refs {
+    cd $WORKSPACE
+    FILES=$(find . -type f -name '*.tf')
+    if [[ -n $FILES ]] ;then
+        sed -i -e "s~\(image[ \t]*=[ \t]*\"\)$NAME:[^\"]*\"~\1$FULL_NAME\"~" $FILES
+        git commit -m "updated docker image $FULL_NAME" -a
+        git push origin master
+    fi
+}
+
+function clean_workspace {
+    rm -rf /tmp/infrastructure
+}
+
+clean_workspace
+set_git_config
+clone_repository
+update_refs

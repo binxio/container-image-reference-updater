@@ -1,0 +1,5 @@
+{
+  "action":"INSERT",
+  "digest":"gcr.io/my-project/hello-world@sha256:6ec128e26cd5...",
+  "tag":"gcr.io/my-project/hello-world:1.1"
+}
