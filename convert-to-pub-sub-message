@@ -1,0 +1,6 @@
+#!/bin/bash
+[[ ! -f $1 ]] && echo "Usage: $(basename $0) file-with-payload" && exit 1
+jq -n --arg notification \
+	"$(base64 < $1)" \
+      --arg id "$(uuidgen)" \
+	'{message: {id: $id, data: $notification}, subscription: "gcr"}'
