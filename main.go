@@ -72,7 +72,7 @@ func HandleContainerRegistryEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateGitRepository(repositoryReference string) error {
-	cmd := exec.Command("/usr/local/bin/update-container-image-reference", repositoryReference)
+	cmd := exec.Command("/usr/local/bin/update-image-references", repositoryReference)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
