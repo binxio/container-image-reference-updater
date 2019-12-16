@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/git
-  entrypoint: /bin/find
+  entrypoint: /usr/bin/find
   args: ['.']
 - name: gcr.io/cloud-builders/git
   args: ['fetch', '--unshallow', '--tags']
