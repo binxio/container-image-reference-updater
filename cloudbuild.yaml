@@ -1,5 +1,8 @@
 steps:
 - name: gcr.io/cloud-builders/git
+  entrypoint: /bin/find
+  args: ['.']
+- name: gcr.io/cloud-builders/git
   args: ['fetch', '--unshallow', '--tags']
 - name: gcr.io/cloud-builders/docker
   entrypoint: make
