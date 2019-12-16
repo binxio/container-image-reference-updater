@@ -1,4 +1,4 @@
-module github.com/binxio/gcr-docker-image-updater
+module github.com/binxio/container-image-reference-updater
 
 go 1.12
 

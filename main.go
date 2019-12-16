@@ -40,7 +40,7 @@ func HandleContainerRegistryEvent(w http.ResponseWriter, r *http.Request) {
 	}
 	var notification GCRNotification
 	if err := json.Unmarshal(m.Message.Data, &notification); err != nil {
-		http.Error(w, "not a GCR notification", http.StatusBadRequest)
+		http.Error(w, "not a Google Container Registry notification", http.StatusBadRequest)
 		return
 	}
 	repository, err := reference.Parse(notification.Tag)
@@ -72,7 +72,7 @@ func HandleContainerRegistryEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateGitRepository(repositoryReference string) error {
-	cmd := exec.Command("/usr/local/bin/update-image-reference", repositoryReference)
+	cmd := exec.Command("/usr/local/bin/update-container-image-reference", repositoryReference)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
