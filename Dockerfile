@@ -12,7 +12,7 @@ ENV REPOSITORY_NAME=infrastructure
 ENV GIT_USER_NAME="Container image reference updater"
 ENV PATH=$PATH:/usr/local/bin
 
-ADD update-image-reference /usr/local/bin/
+ADD update-container-image-reference /usr/local/bin/
 COPY --from=0 /app/container-image-reference-updater /usr/local/bin/
 
 ENTRYPOINT 	["/usr/local/bin/container-image-reference-updater"]
