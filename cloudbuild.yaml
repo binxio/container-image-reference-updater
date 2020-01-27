@@ -7,8 +7,6 @@ steps:
     args: ['fetch']
   - name: gcr.io/cloud-builders/git
     args: ['reset', 'origin/master']
-  - name: gcr.io/cloud-builders/git
-    args: ['status']
   - name: gcr.io/cloud-builders/docker
     entrypoint: make
     args:
