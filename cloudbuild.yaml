@@ -8,7 +8,7 @@ steps:
   - name: gcr.io/cloud-builders/git
     args: ['reset', 'origin/master']
   - name: gcr.io/cloud-builders/git
-    args: ['checkout', '-t', 'origin/master']
+    args: ['status']
   - name: gcr.io/cloud-builders/docker
     entrypoint: make
     args:
